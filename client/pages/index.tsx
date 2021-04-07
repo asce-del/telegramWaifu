@@ -1,12 +1,13 @@
-import React from "react"
+import React from "react";
+import { Header } from "../components/header";
 interface homeProps {}
 
 const Home: React.FC<homeProps> = ({}) => {
   return (
     <div>
-      Welcome to FloppaHouse
+      <Header />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
