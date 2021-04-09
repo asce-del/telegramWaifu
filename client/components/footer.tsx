@@ -7,7 +7,7 @@ export const Footer: React.FC<footerProps> = ({}) => {
     <div className="w-full flex justify-between sm:flex-row flex-col mb-20 mt-20 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
       <div className="sm:w-3/5 w-full sm:border-r-4 sm:border-indigo-600">
         <h3 className="font-bold sm:text-3xl text-2xl sm:text-left text-center text-indigo-600 cursor-pointer hover:text-indigo-500">
-          Tecgnologies, i used to create this site:
+          Technologies, i used to create this site:
         </h3>
         <ul className="list-disc sm:ml-14 p-8 sm:text-left text-center mt-4 md:text-l sm:text-lg text-gray-500 ">
           <li>Next.js</li>
