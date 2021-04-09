@@ -13,8 +13,8 @@ export const Header: React.FC<headerProps> = ({}) => {
             aria-label="Global"
           >
             <h1 className="hidden md:flex p-5 font-bold text-2xl text-indigo-600 cursor-pointer hover:text-indigo-500">Licode.io</h1>
-            <div className="hidden md:flex w-full md:space-x-8">
-              <div className="w-4/5">
+            <div className="hidden md:flex items-center w-full md:space-x-8">
+              <div className="flex justify-center w-4/5">
                 <a
                   href="#"
                   className="p-5 font-medium text-gray-500  hover:text-gray-900"
