@@ -4,7 +4,7 @@ interface footerProps {}
 
 export const Footer: React.FC<footerProps> = ({}) => {
   return (
-    <div className="w-full flex justify-between sm:flex-row flex-col mt-20 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+    <div className="w-full flex justify-between sm:flex-row flex-col mb-20 mt-20 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
       <div className="sm:w-3/5 w-full sm:border-r-4 sm:border-indigo-600">
         <h3 className="font-bold sm:text-3xl text-2xl sm:text-left text-center text-indigo-600 cursor-pointer hover:text-indigo-500">
           Tecgnologies, i used to create this site:
@@ -43,7 +43,7 @@ export const Footer: React.FC<footerProps> = ({}) => {
           Well-rounded and professional team player dedicated to continuing
           academic pursuits at a collegiate level.
         </p>
-        <button className="float-right mt-4 bg-indigo-600 hover:bg-indigo-500 font-bold py-2 px-4 text-white rounded-full">
+        <button className="float-right mt-20 bg-indigo-600 hover:bg-indigo-500 font-bold py-2 px-4 text-white rounded-full">
           Contact me
         </button>
       </div>

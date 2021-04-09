@@ -19,28 +19,21 @@ export const Header: React.FC<headerProps> = ({}) => {
                   href="#"
                   className="p-5 font-medium text-gray-500  hover:text-gray-900"
                 >
-                  Product
+                  Projects
                 </a>
 
                 <a
                   href="#"
                   className="p-5 font-medium text-gray-500 hover:text-gray-900"
                 >
-                  Features
+                  About me
                 </a>
 
                 <a
                   href="#"
                   className="p-5 font-medium text-gray-500 hover:text-gray-900"
                 >
-                  Marketplace
-                </a>
-
-                <a
-                  href="#"
-                  className="p-5 font-medium text-gray-500 hover:text-gray-900"
-                >
-                  Company
+                  Hire me
                 </a>
               </div>
               <div>
