@@ -6,8 +6,8 @@ interface mainProps {}
 export const Main: React.FC<mainProps> = ({}) => {
   return (
     <div>
-      <main className="flex mt-20 flex-wrap sm:flex-nowrap mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-        <div className="sm:text-center lg:text-left">
+      <main className="w-full items-center flex mt-20 flex-wrap sm:flex-nowrap mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+        <div className="w-full sm:w-2/4 sm:text-center lg:text-left">
           <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
             <span className="block xl:inline">Welcome to my </span>
             <span className="block text-indigo-600 xl:inline">site</span>
@@ -36,13 +36,23 @@ export const Main: React.FC<mainProps> = ({}) => {
             </div>
           </div>
         </div>
-        <div>
-          <Image
-            src="/me1.png"
-            alt="Picture of the author"
-            width={600}
-            height={600}
-          />
+        <div className="mt-10 sm:mt-0 sm:h-64 md:h-96 flex w-full sm:w-2/4 justify-center">
+          <div style={{ marginBlockStart: "auto", paddingRight: 30 }}>
+            <Image
+              src="/boy.svg"
+              alt="Picture of the author"
+              width={300}
+              height={300}
+            />
+          </div>
+          <div>
+            <Image
+              src="/girl.svg"
+              alt="Picture of the author"
+              width={300}
+              height={300}
+            />
+          </div>
         </div>
       </main>
     </div>
