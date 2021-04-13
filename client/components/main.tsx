@@ -36,7 +36,7 @@ export const Main: React.FC<mainProps> = ({}) => {
             </div>
           </div>
         </div>
-        <div className="m-14 sm:h-64 md:h-96 flex w-full md:w-2/4 justify-center">
+        <div className="mt-10 sm:h-64 md:h-96 flex w-full md:w-2/4 justify-center">
           <div style={{ marginBlockStart: "auto", paddingRight: 30 }}>
             <Image
               src="/boy.svg"

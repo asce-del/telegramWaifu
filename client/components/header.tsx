@@ -138,6 +138,7 @@ export const Header: React.FC<headerProps> = ({}) => {
                   </a>
                 </div>
                 <a
+                  onClick={() => setOpenModal(!openModal)}
                   href="#"
                   className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
                 >

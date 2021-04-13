@@ -17,7 +17,7 @@ export const Login: React.FC<loginProps> = ({}) => {
           name="email_address"
           id="email_address"
           autoComplete="email_address"
-          className="mt-3 border-2 rounded-md border-gray-400 shadow-sm"
+          className="w-40 sm:w-full mt-3 border-2 rounded-md border-gray-400 shadow-sm"
         />
       </div>
       <div className="m-6 col-span-6 sm:col-span-4">
@@ -32,7 +32,7 @@ export const Login: React.FC<loginProps> = ({}) => {
           name="password"
           id="password"
           autoComplete="password"
-          className="focus:ring-2 focus:ring-blue-600 mt-3 border-2 rounded-md border-gray-400 shadow-sm"
+          className="w-40 sm:w-full mt-3 border-2 rounded-md border-gray-400 shadow-sm"
         />
       </div>
     </div>

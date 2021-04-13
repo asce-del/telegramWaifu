@@ -17,7 +17,7 @@ export const Register: React.FC<registerProps> = ({}) => {
           name="first_name"
           id="first_name"
           autoComplete="given-name"
-          className="mt-3 border-2 rounded-md border-gray-400 shadow-sm"
+          className="w-40 sm:w-full mt-3 border-2 rounded-md border-gray-400 shadow-sm"
         />
       </div>
 
@@ -33,7 +33,7 @@ export const Register: React.FC<registerProps> = ({}) => {
           name="last_name"
           id="last_name"
           autoComplete="family-name"
-          className="mt-3 border-2 rounded-md border-gray-400 shadow-sm"
+          className="w-40 sm:w-full mt-3 border-2 rounded-md border-gray-400 shadow-sm"
         />
       </div>
       <div className="m-6 col-span-6 sm:col-span-4">
@@ -48,7 +48,7 @@ export const Register: React.FC<registerProps> = ({}) => {
           name="email_address"
           id="email_address"
           autoComplete="email"
-          className="mt-3 border-2 rounded-md border-gray-400 shadow-sm"
+          className="w-40 sm:w-full mt-3 border-2 rounded-md border-gray-400 shadow-sm"
         />
       </div>
       <div className="m-6 col-span-6 sm:col-span-4">
@@ -63,7 +63,7 @@ export const Register: React.FC<registerProps> = ({}) => {
           name="password"
           id="password"
           autoComplete="password"
-          className="mt-3 border-2 rounded-md border-gray-400 shadow-sm"
+          className="w-40 sm:w-full mt-3 border-2 rounded-md border-gray-400 shadow-sm"
         />
       </div>
     </div>

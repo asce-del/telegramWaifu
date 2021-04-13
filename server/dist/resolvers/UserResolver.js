@@ -24,7 +24,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostResolver = void 0;
 require("reflect-metadata");
 const type_graphql_1 = require("type-graphql");
-const User_1 = require("../entities/User");
 let PostInput = class PostInput {
 };
 __decorate([
@@ -77,7 +76,7 @@ let PostResolver = class PostResolver {
     }
 };
 __decorate([
-    type_graphql_1.Mutation(() => User_1.Post),
+    type_graphql_1.Mutation(() => Post),
     __param(0, type_graphql_1.Arg("options", () => PostInput)),
     __param(1, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
@@ -85,7 +84,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PostResolver.prototype, "createPost", null);
 __decorate([
-    type_graphql_1.Query(() => [User_1.Post]),
+    type_graphql_1.Query(() => [Post]),
     __param(0, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

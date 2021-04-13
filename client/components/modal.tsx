@@ -54,7 +54,7 @@ export const Modal: React.FC<modalProps> = ({ openModal, setOpenModal }) => {
                     <span className="text-indigo-600 xl:inline">site</span>
                   </h3>
                   <div
-                    className="absolute top-5 cursor-pointer right-5"
+                    className="absolute sm:top-5 cursor-pointer right-5"
                     onClick={() => setOpenModal(!openModal)}
                   >
                     <svg
