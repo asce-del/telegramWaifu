@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { Main } from "./main";
+import { Modal } from "./modal";
 interface headerProps {}
 
 export const Header: React.FC<headerProps> = ({}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div className="relative bg-white overflow-hidden">
+      {openModal && <Modal openModal={openModal} setOpenModal={setOpenModal} />}
       <div className="max-w-7xl mx-auto">
         <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
           <nav
             className="relative flex items-center justify-between sm:h-10 lg:justify-start"
             aria-label="Global"
           >
-            <h1 className="hidden md:flex p-5 font-bold text-2xl text-indigo-600 cursor-pointer hover:text-indigo-500">Licode.io</h1>
+            <h1 className="hidden md:flex p-5 font-bold text-2xl text-indigo-600 cursor-pointer hover:text-indigo-500">
+              Licode.io
+            </h1>
             <div className="hidden md:flex items-center w-full md:space-x-8">
               <div className="flex justify-center w-4/5">
                 <a
@@ -40,6 +46,7 @@ export const Header: React.FC<headerProps> = ({}) => {
                 <a
                   href="#"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
+                  onClick={() => setOpenModal(!openModal)}
                 >
                   Log in
                 </a>
@@ -52,7 +59,9 @@ export const Header: React.FC<headerProps> = ({}) => {
           <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
             <div className="px-5 flex items-center justify-between">
               <div>
-              <h1 className="p-5 font-bold text-2xl text-indigo-600 cursor-pointer hover:text-indigo-500">Licode.io</h1>
+                <h1 className="p-5 font-bold text-2xl text-indigo-600 cursor-pointer hover:text-indigo-500">
+                  Licode.io
+                </h1>
               </div>
               <div className="-mr-2">
                 <button
@@ -139,7 +148,7 @@ export const Header: React.FC<headerProps> = ({}) => {
           </div>
         </div>
 
-       <Main />
+        <Main />
       </div>
     </div>
   );
