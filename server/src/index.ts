@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import * as tq from 'type-graphql'
-import { PostResolver } from "./resolvers/PostResolver"
+import { PostResolver } from "./resolvers/UserResolver"
 import { ApolloServer } from 'apollo-server'
 import { context } from './context'
 

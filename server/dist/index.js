@@ -30,12 +30,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 const tq = __importStar(require("type-graphql"));
-const PostResolver_1 = require("./resolvers/PostResolver");
+const UserResolver_1 = require("./resolvers/UserResolver");
 const apollo_server_1 = require("apollo-server");
 const context_1 = require("./context");
 const app = () => __awaiter(void 0, void 0, void 0, function* () {
     const schema = yield tq.buildSchema({
-        resolvers: [PostResolver_1.PostResolver],
+        resolvers: [UserResolver_1.PostResolver],
     });
     new apollo_server_1.ApolloServer({ schema, context: context_1.context }).listen({ port: 4000 }, () => console.log(`🚀 Server ready at: http://localhost:4000\n⭐️  See sample queries: http://pris.ly/e/ts/graphql-typegraphql#using-the-graphql-api`));
 });

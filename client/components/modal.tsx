@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { Login } from "./login";
+import { Register } from "./register";
 
 interface modalProps {
   openModal: boolean;
@@ -6,6 +8,16 @@ interface modalProps {
 }
 
 export const Modal: React.FC<modalProps> = ({ openModal, setOpenModal }) => {
+  const [mode, setMode] = useState("LOGIN");
+
+  const handleMode = () => {
+    if (mode === "LOGIN") {
+      setMode("REGISTER");
+    } else if (mode === "REGISTER") {
+      setMode("LOGIN");
+    }
+  };
+
   return (
     <form>
       <div
@@ -33,9 +45,9 @@ export const Modal: React.FC<modalProps> = ({ openModal, setOpenModal }) => {
           >
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
-                <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                <div className="mx-auto text-center sm:text-left">
                   <h3
-                    className="text-lg leading-6 font-medium text-gray-900"
+                    className="text-lg text-center leading-6 font-medium text-gray-900"
                     id="modal-title"
                   >
                     Welcome to my{" "}
@@ -60,57 +72,8 @@ export const Modal: React.FC<modalProps> = ({ openModal, setOpenModal }) => {
                       />
                     </svg>
                   </div>
-                  <div className="mt-14">
-                    <div className="m-6 col-span-6 sm:col-span-3">
-                      <label
-                        htmlFor="first_name"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        First name
-                      </label>
-                      <input
-                        type="text"
-                        name="first_name"
-                        id="first_name"
-                        autoComplete="given-name"
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full
-                       shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      />
-                    </div>
-
-                    <div className="m-6 col-span-6 sm:col-span-3">
-                      <label
-                        htmlFor="last_name"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Last name
-                      </label>
-                      <input
-                        type="text"
-                        name="last_name"
-                        id="last_name"
-                        autoComplete="family-name"
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full 
-                        shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      />
-                    </div>
-                    <div className="m-6 col-span-6 sm:col-span-4">
-                      <label
-                        htmlFor="email_address"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Email address
-                      </label>
-                      <input
-                        type="text"
-                        name="email_address"
-                        id="email_address"
-                        autoComplete="email"
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full 
-                      shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      />
-                    </div>
-                  </div>
+                  {mode === "LOGIN" && <Login />}
+                  {mode === "REGISTER" && <Register />}
                 </div>
               </div>
             </div>
@@ -124,12 +87,14 @@ export const Modal: React.FC<modalProps> = ({ openModal, setOpenModal }) => {
                 Submit
               </button>
               <button
+                onClick={handleMode}
                 type="button"
                 className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 
               shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-200 focus:outline-none 
               focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
               >
-                Not signed up?
+                {mode === "LOGIN" && "Not signed up?"}
+                {mode === "REGISTER" && "Signed up?"}
               </button>
             </div>
           </div>

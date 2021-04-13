@@ -2,17 +2,19 @@ import 'reflect-metadata'
 import { ObjectType, Field, ID } from 'type-graphql'
 
 @ObjectType()
-export class Post {
+export class User {
   @Field((type) => ID)
   id: number
 
   @Field()
-  title: string
+  fname: string
 
   @Field((type) => String, { nullable: true })
-  content: string | null
+  lname: string | null
 
   @Field((type) => Boolean, { nullable: true })
-  published?: boolean | null
+  email?: boolean | null
 
+  @Field((type) => Boolean, { nullable: true })
+  password?: boolean | null
 }

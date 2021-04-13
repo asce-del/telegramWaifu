@@ -8,7 +8,7 @@ import {
   Ctx,
   Query,
 } from "type-graphql";
-import { Post } from "../entities/Post";
+import { User } from "../entities/User";
 import { Context } from "../context";
 
 @InputType()

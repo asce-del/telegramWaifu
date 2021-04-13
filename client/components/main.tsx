@@ -6,8 +6,8 @@ interface mainProps {}
 export const Main: React.FC<mainProps> = ({}) => {
   return (
     <div>
-      <main className="w-full items-center flex mt-20 flex-wrap sm:flex-nowrap mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-        <div className="w-full sm:w-2/4 sm:text-center lg:text-left">
+      <main className="w-full items-center flex mt-20 flex-wrap md:flex-nowrap mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+        <div className="w-full md:w-2/4 sm:text-center lg:text-left">
           <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
             <span className="block xl:inline">Welcome to my web</span>
             <span className="block text-indigo-600 xl:inline">site</span>
@@ -36,7 +36,7 @@ export const Main: React.FC<mainProps> = ({}) => {
             </div>
           </div>
         </div>
-        <div className="mt-10 sm:mt-0 sm:h-64 md:h-96 flex w-full sm:w-2/4 justify-center">
+        <div className="m-14 sm:h-64 md:h-96 flex w-full md:w-2/4 justify-center">
           <div style={{ marginBlockStart: "auto", paddingRight: 30 }}>
             <Image
               src="/boy.svg"
