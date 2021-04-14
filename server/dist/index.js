@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -27,16 +8,65 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-const tq = __importStar(require("type-graphql"));
+const apollo_server_express_1 = require("apollo-server-express");
+const client_1 = require("@prisma/client");
+const type_graphql_1 = require("type-graphql");
 const UserResolver_1 = require("./resolvers/UserResolver");
-const apollo_server_1 = require("apollo-server");
-const context_1 = require("./context");
-const app = () => __awaiter(void 0, void 0, void 0, function* () {
-    const schema = yield tq.buildSchema({
-        resolvers: [UserResolver_1.PostResolver],
+const express_1 = __importDefault(require("express"));
+const ioredis_1 = __importDefault(require("ioredis"));
+const express_session_1 = __importDefault(require("express-session"));
+const connect_redis_1 = __importDefault(require("connect-redis"));
+const cors_1 = __importDefault(require("cors"));
+const main = () => __awaiter(void 0, void 0, void 0, function* () {
+    const app = express_1.default();
+    const prisma = new client_1.PrismaClient();
+    const RedisStore = connect_redis_1.default(express_session_1.default);
+    const redis = new ioredis_1.default();
+    app.use(cors_1.default({
+        origin: "http://localhost:3000",
+        credentials: true,
+    }));
+    app.use(express_session_1.default({
+        name: "qid",
+        store: new RedisStore({
+            client: redis,
+            disableTouch: true,
+        }),
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+            httpOnly: true,
+            sameSite: "lax",
+            secure: process.env.NODE_ENV === "production", // cookie only works in https
+        },
+        saveUninitialized: false,
+        secret: "dfjstretreqwrerewt",
+        resave: false,
+    }));
+    const apolloServer = new apollo_server_express_1.ApolloServer({
+        schema: yield type_graphql_1.buildSchema({
+            resolvers: [UserResolver_1.UserResolver],
+            validate: false,
+        }),
+        context: ({ req, res }) => ({
+            req,
+            res,
+            redis,
+            prisma,
+        }),
+        playground: true,
+        introspection: true,
     });
-    new apollo_server_1.ApolloServer({ schema, context: context_1.context }).listen({ port: 4000 }, () => console.log(`🚀 Server ready at: http://localhost:4000\n⭐️  See sample queries: http://pris.ly/e/ts/graphql-typegraphql#using-the-graphql-api`));
+    apolloServer.applyMiddleware({
+        app,
+        cors: false,
+    });
+    app.listen(process.env.PORT, () => {
+        console.log(`Server started on port ${process.env.PORT}`);
+    });
 });
-app();
+main().catch((error) => console.error(error));

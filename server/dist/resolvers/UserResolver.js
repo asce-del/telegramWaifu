@@ -20,77 +20,102 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostResolver = void 0;
+exports.UserResolver = void 0;
 require("reflect-metadata");
 const type_graphql_1 = require("type-graphql");
-let PostInput = class PostInput {
+const argon2_1 = __importDefault(require("argon2"));
+const User_1 = require("../entities/User");
+const UserInput_1 = require("./UserInput");
+const validateRegister_1 = require("../utils/validateRegister");
+let FieldError = class FieldError {
 };
 __decorate([
     type_graphql_1.Field(),
     __metadata("design:type", String)
-], PostInput.prototype, "title", void 0);
+], FieldError.prototype, "field", void 0);
 __decorate([
     type_graphql_1.Field(),
     __metadata("design:type", String)
-], PostInput.prototype, "content", void 0);
-__decorate([
-    type_graphql_1.Field(() => Boolean, { nullable: true }),
-    __metadata("design:type", Boolean)
-], PostInput.prototype, "published", void 0);
-PostInput = __decorate([
-    type_graphql_1.InputType()
-], PostInput);
-let PostUpdateInput = class PostUpdateInput {
+], FieldError.prototype, "message", void 0);
+FieldError = __decorate([
+    type_graphql_1.ObjectType()
+], FieldError);
+let UserResponse = class UserResponse {
 };
 __decorate([
-    type_graphql_1.Field(() => String, { nullable: true }),
-    __metadata("design:type", String)
-], PostUpdateInput.prototype, "title", void 0);
+    type_graphql_1.Field(() => [FieldError], { nullable: true }),
+    __metadata("design:type", Array)
+], UserResponse.prototype, "errors", void 0);
 __decorate([
-    type_graphql_1.Field(() => String, { nullable: true }),
-    __metadata("design:type", String)
-], PostUpdateInput.prototype, "content", void 0);
-__decorate([
-    type_graphql_1.Field(() => Boolean, { nullable: true }),
-    __metadata("design:type", Boolean)
-], PostUpdateInput.prototype, "published", void 0);
-PostUpdateInput = __decorate([
-    type_graphql_1.InputType()
-], PostUpdateInput);
-let PostResolver = class PostResolver {
-    createPost(options, ctx) {
+    type_graphql_1.Field(() => User_1.User, { nullable: true }),
+    __metadata("design:type", User_1.User)
+], UserResponse.prototype, "user", void 0);
+UserResponse = __decorate([
+    type_graphql_1.ObjectType()
+], UserResponse);
+let UserResolver = class UserResolver {
+    me({ req, prisma }) {
+        if (!req.session.userId) {
+            return null;
+        }
+        return prisma.user.findUnique({ where: { id: req.session.userId } });
+    }
+    createUser(options, { req, prisma }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const post = yield ctx.prisma.post.create({
-                data: {
-                    title: options.title,
-                    content: options.content,
-                    published: options.published,
+            const errors = validateRegister_1.validateRegsiter(options);
+            if (errors) {
+                console.log(errors);
+                return { errors };
+            }
+            const hashedPassword = yield argon2_1.default.hash(options.password);
+            const exist = yield prisma.user.findUnique({
+                where: {
+                    email: options.email,
                 },
             });
-            return post;
+            if (exist) {
+                return {
+                    errors: [
+                        {
+                            field: "username",
+                            message: "username or email already taken",
+                        },
+                    ],
+                };
+            }
+            const user = yield prisma.user.create({
+                data: {
+                    fname: options.fname,
+                    lname: options.lname,
+                    email: options.email,
+                    password: hashedPassword,
+                },
+            });
+            req.session.userId = user.id;
+            return { user };
         });
-    }
-    posts(ctx) {
-        return ctx.prisma.post.findMany();
     }
 };
 __decorate([
-    type_graphql_1.Mutation(() => Post),
-    __param(0, type_graphql_1.Arg("options", () => PostInput)),
-    __param(1, type_graphql_1.Ctx()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [PostInput, Object]),
-    __metadata("design:returntype", Promise)
-], PostResolver.prototype, "createPost", null);
-__decorate([
-    type_graphql_1.Query(() => [Post]),
+    type_graphql_1.Query(() => User_1.User, { nullable: true }),
     __param(0, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], PostResolver.prototype, "posts", null);
-PostResolver = __decorate([
+], UserResolver.prototype, "me", null);
+__decorate([
+    type_graphql_1.Mutation(() => UserResponse),
+    __param(0, type_graphql_1.Arg("options", () => UserInput_1.UserInput)),
+    __param(1, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [UserInput_1.UserInput, Object]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "createUser", null);
+UserResolver = __decorate([
     type_graphql_1.Resolver()
-], PostResolver);
-exports.PostResolver = PostResolver;
+], UserResolver);
+exports.UserResolver = UserResolver;

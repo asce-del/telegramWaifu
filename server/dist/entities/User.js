@@ -19,20 +19,20 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "id", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field((type) => String),
     __metadata("design:type", String)
 ], User.prototype, "fname", void 0);
 __decorate([
-    type_graphql_1.Field((type) => String, { nullable: true }),
-    __metadata("design:type", Object)
+    type_graphql_1.Field((type) => String),
+    __metadata("design:type", String)
 ], User.prototype, "lname", void 0);
 __decorate([
-    type_graphql_1.Field((type) => Boolean, { nullable: true }),
-    __metadata("design:type", Object)
+    type_graphql_1.Field((type) => String),
+    __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    type_graphql_1.Field((type) => Boolean, { nullable: true }),
-    __metadata("design:type", Object)
+    type_graphql_1.Field((type) => String),
+    __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 User = __decorate([
     type_graphql_1.ObjectType()

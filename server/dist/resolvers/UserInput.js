@@ -9,28 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Post = void 0;
-require("reflect-metadata");
+exports.UserInput = void 0;
 const type_graphql_1 = require("type-graphql");
-let Post = class Post {
+let UserInput = class UserInput {
 };
-__decorate([
-    type_graphql_1.Field((type) => type_graphql_1.ID),
-    __metadata("design:type", Number)
-], Post.prototype, "id", void 0);
 __decorate([
     type_graphql_1.Field(),
     __metadata("design:type", String)
-], Post.prototype, "title", void 0);
+], UserInput.prototype, "fname", void 0);
 __decorate([
-    type_graphql_1.Field((type) => String, { nullable: true }),
-    __metadata("design:type", Object)
-], Post.prototype, "content", void 0);
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], UserInput.prototype, "lname", void 0);
 __decorate([
-    type_graphql_1.Field((type) => Boolean, { nullable: true }),
-    __metadata("design:type", Object)
-], Post.prototype, "published", void 0);
-Post = __decorate([
-    type_graphql_1.ObjectType()
-], Post);
-exports.Post = Post;
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], UserInput.prototype, "email", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], UserInput.prototype, "password", void 0);
+UserInput = __decorate([
+    type_graphql_1.InputType()
+], UserInput);
+exports.UserInput = UserInput;

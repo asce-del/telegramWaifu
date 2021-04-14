@@ -1,11 +1,13 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client";
+import { Request, Response } from "express";
+import { Session, SessionData } from "express-session";
+import { Redis } from "ioredis";
 
-const prisma = new PrismaClient()
-
-export interface Context {
-  prisma: PrismaClient
-}
-
-export const context: Context = {
-  prisma: prisma
-}
+export type Context = {
+  req: Request & {
+    session: Session & Partial<SessionData> & { userId?: number };
+  };
+  redis: Redis;
+  res: Response;
+  prisma: PrismaClient;
+};

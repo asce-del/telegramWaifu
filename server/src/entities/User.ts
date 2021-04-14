@@ -6,15 +6,15 @@ export class User {
   @Field((type) => ID)
   id: number
 
-  @Field()
-  fname: string
+  @Field((type) => String)
+  fname!: string
 
-  @Field((type) => String, { nullable: true })
-  lname: string | null
+  @Field((type) => String)
+  lname!: string
 
-  @Field((type) => Boolean, { nullable: true })
-  email?: boolean | null
+  @Field((type) => String)
+  email!: string
 
-  @Field((type) => Boolean, { nullable: true })
-  password?: boolean | null
+  @Field((type) => String)
+  password!: string
 }
