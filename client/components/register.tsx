@@ -1,8 +1,12 @@
 import React from "react";
+import { useRegisterMutation } from "../generated/graphql";
 
 interface registerProps {}
 
 export const Register: React.FC<registerProps> = ({}) => {
+  const [, createUser] = useRegisterMutation()
+
+  console.log(createUser)
   return (
     <div className="mt-14">
       <div className="m-6 col-span-6 sm:col-span-3">
