@@ -17,6 +17,7 @@ const main = async () => {
 
   const RedisStore = connectRedis(session);
   const redis = new Redis();
+
   app.use(
     cors({
       origin: "http://localhost:3000",
@@ -32,7 +33,7 @@ const main = async () => {
         disableTouch: true,
       }),
       cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 YEARS
+        maxAge: 1000 * 60 * 60 * 24 * 365, // 1 YEAR
         httpOnly: true,
         sameSite: "lax", // csrf protection
         secure: process.env.NODE_ENV === "production", // cookie only works in https
