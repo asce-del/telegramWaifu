@@ -17,8 +17,6 @@ import { validateRegsiter } from "../utils/validateRegister";
 @ObjectType()
 class FieldError {
   @Field()
-  field: string;
-  @Field()
   message: string;
 }
 
@@ -35,7 +33,6 @@ class UserResponse {
 export class UserResolver {
   @Query(() => User, { nullable: true })
   me(@Ctx() { req, prisma }: Context) {
-    console.log(req.session)
     if (!req.session.userId) {
       return null;
     }
@@ -66,7 +63,6 @@ export class UserResolver {
       return {
         errors: [
           {
-            field: "username",
             message: "username or email already taken",
           },
         ],
@@ -84,8 +80,63 @@ export class UserResolver {
 
     req.session.userId = user.id;
 
-    console.log(req.session)
-
     return { user };
+  }
+
+  @Mutation(() => UserResponse)
+  async loginUser(
+    @Arg("email") email: string,
+    @Arg("password") password: string,
+    @Ctx() { req, prisma }: Context
+  ): Promise<UserResponse> {
+    
+    const user = await prisma.user.findUnique({
+      where: {
+        email
+      },
+    });
+
+    if (!user) {
+      return {
+        errors: [
+          {
+            message: "couldnt find a user",
+          },
+        ],
+      };
+    }
+
+    const valid = await argon2.verify(user.password, password);
+    if (!valid) {
+      return {
+        errors: [
+          {
+            message: "invalid password",
+          },
+        ],
+      };
+    }
+
+    req.session.userId = user.id;
+
+    return {
+      user,
+    };
+  }
+
+  @Mutation(() => Boolean)
+  logoutUser(@Ctx() { req, res }: Context) {
+    return new Promise((resolve) =>
+      req.session.destroy((err) => {
+        if (err) {
+          console.log(err);
+          resolve(false);
+          return;
+        }
+
+        res.clearCookie(process.env.COOKIE_NAME!);
+        resolve(true);
+      })
+    );
   }
 }

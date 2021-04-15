@@ -1,0 +1,7 @@
+fragment RegUser on User {
+    id
+    fname
+    lname
+    email
+    password
+}
