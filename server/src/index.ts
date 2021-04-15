@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
-import { PrismaClient } from "@prisma/client";
 import { buildSchema } from "type-graphql";
 import { UserResolver } from "./resolvers/UserResolver";
 import express from "express";
@@ -8,9 +7,11 @@ import Redis from "ioredis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import cors from "cors";
-import { Context } from "./context";
+import { PrismaClient } from "@prisma/client";
+
 
 const main = async () => {
+
   const app = express();
   const prisma = new PrismaClient();
 
@@ -25,7 +26,7 @@ const main = async () => {
 
   app.use(
     session({
-      name: "qid",
+      name: process.env.COOKIE_NAME,
       store: new RedisStore({
         client: redis as any,
         disableTouch: true,
@@ -37,7 +38,7 @@ const main = async () => {
         secure: process.env.NODE_ENV === "production", // cookie only works in https
       },
       saveUninitialized: false,
-      secret: "dfjstretreqwrerewt",
+      secret: process.env.SESSION_SECRET as any,
       resave: false,
     })
   );
@@ -51,10 +52,8 @@ const main = async () => {
       req,
       res,
       redis,
-      prisma,
+      prisma
     }),
-    playground: true,
-    introspection: true,
   });
 
   apolloServer.applyMiddleware({

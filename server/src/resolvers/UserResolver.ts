@@ -36,6 +36,7 @@ class UserResponse {
 export class UserResolver {
   @Query(() => User, { nullable: true })
   me(@Ctx() { req, prisma }: Context) {
+    console.log(req.session)
     if (!req.session.userId) {
       return null;
     }
@@ -83,6 +84,8 @@ export class UserResolver {
     });
 
     req.session.userId = user.id;
+
+    console.log(req.session)
 
     return { user };
   }
