@@ -16,7 +16,6 @@ router.post(
     res: Response
   ) => {
     try {
-      console.log(req.body);
       const { fname, lname, email, password } = req.body.values;
       const errors = validateRegsiter({ fname, lname, email, password });
 
