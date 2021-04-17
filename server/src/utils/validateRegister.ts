@@ -1,7 +1,6 @@
-import { UserInput } from "../resolvers/UserInput";
 import * as EmailValidator from "email-validator";
 
-export const validateRegsiter = (options: UserInput) => {
+export const validateRegsiter = (options: any) => {
   if (options.fname.length <= 2) {
     return [
       {

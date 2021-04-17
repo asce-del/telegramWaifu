@@ -1,14 +1,11 @@
-import { ApolloProvider } from "@apollo/client";
 import React from "react";
 import "tailwindcss/tailwind.css";
-import { useApollo } from "../utils/apolloClient";
+import axios from "axios"
 
 function MyApp({ Component, pageProps }) {
-  const client = useApollo();
+  axios.defaults.baseURL = process.env.REACT_APP_API
   return (
-    <ApolloProvider client={client}>
       <Component {...pageProps} />
-    </ApolloProvider>
   );
 }
 
