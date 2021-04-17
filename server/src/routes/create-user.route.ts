@@ -16,27 +16,24 @@ router.post(
     res: Response
   ) => {
     try {
-      console.log(req.body)
-      const { fname, lname, email, password } = req.body;
+      console.log(req.body);
+      const { fname, lname, email, password } = req.body.values;
       const errors = validateRegsiter({ fname, lname, email, password });
 
-      console.log(errors);
-
       if (errors) {
-        console.log(errors);
-        return { errors };
+        return res.status(400).json({ errors });
       }
 
       const hashedPassword = await argon2.hash(password);
 
       const exist = await prisma.user.findUnique({
         where: {
-          email
+          email,
         },
       });
 
       if (exist) {
-        return res.status(401).json({ message: "User already exist" });
+        return res.status(400).json({ message: "User already exist" });
       }
 
       const user = await prisma.user.create({
@@ -48,12 +45,9 @@ router.post(
         },
       });
 
-      console.log(user);
-      console.log(req.session)
-
       req.session.userId = user.id;
 
-      res.status(201).json({user, message: "User created"})
+      res.status(201).json({ user, message: "User created" });
     } catch (e) {
       console.log(e);
       res.status(500).json({ message: "An error occurred" });

@@ -17,7 +17,10 @@ export const Register: React.FC<registerProps> = ({}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios(`/create-user/`)
+    axios
+      .post(`http://localhost:4000/create-user/`, {
+        values,
+      })
       .then((res) => {
         console.log("[APP::LAUNCH]: ", res.data);
       })

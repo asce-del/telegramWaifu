@@ -43,6 +43,8 @@ const main = async () => {
   );
 
   app.use("/create-user", require("./routes/create-user.route"));
+  app.use("/login-user", require("./routes/login-user.route"));
+
 
   app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`);

@@ -1,23 +1,49 @@
+import axios from "axios";
 import React from "react";
+import { useState } from "react";
 
 interface loginProps {}
 
 export const Login: React.FC<loginProps> = ({}) => {
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+
+  const changeValue = (e: { target: { name: string; value: string } }) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:4000/login-user/", {
+        values,
+      })
+      .then((res) => {
+        console.log("[APP::LAUNCH]: ", res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="mt-14">
         <div className="m-6 col-span-6 sm:col-span-4">
           <label
-            htmlFor="email_address"
+            htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
             Email address
           </label>
           <input
             type="email"
-            name="email_address"
-            id="email_address"
-            autoComplete="email_address"
+            name="email"
+            value={values.email}
+            onChange={changeValue}
+            id="email"
+            autoComplete="email"
             className="w-40 sm:w-full mt-3 border-2 rounded-md border-gray-400 shadow-sm"
           />
         </div>
@@ -31,6 +57,8 @@ export const Login: React.FC<loginProps> = ({}) => {
           <input
             type="password"
             name="password"
+            value={values.password}
+            onChange={changeValue}
             id="password"
             autoComplete="password"
             className="w-40 sm:w-full mt-3 border-2 rounded-md border-gray-400 shadow-sm"
